@@ -1,0 +1,15 @@
+{
+  "name": "apy_gym",
+  "version": "1.0.0",
+  "description": "A API para Gestão de Academia permite gerenciar funcionários, alunos, planos, modalidades, exercícios e rotinas de treino.",
+  "main": "index.js",
+  "author": "Cassio(email: cassiotadeu.ads@gmail.com)",
+  "license": "MIT",
+  "scripts": {
+    "dev":"nodemon"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
+}
