@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllClient, getClientById, saveClient, update } from "../controller/gymClient.controller";
+import { getAllClient, getClientById, saveClient, update } from "../controller/gymClient.controller.js";
 
 
 /**

@@ -1,5 +1,5 @@
-import { getByEmailTeam } from "../models/companyTeam.model";
-import { getByEmailInstructor } from "../models/instructor.model";
+import { getByEmailTeam } from "../models/companyTeam.model.js";
+import { getByEmailInstructor } from "../models/instructor.model.js";
 import { compareCrypt } from "../utils/bcryptUtils.js";
 import { createTokenInstructor, createTokenTeam } from "../utils/jwtUtils.js";
 
