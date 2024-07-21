@@ -1,8 +1,5 @@
 import { db } from "../services/db.js";
 
-/**
- * Base: Model responsável por interagir com banco de dados; realizando consulta, inserção, delete, ...
- */
 
 const TABLE = 'instructor';
 
@@ -16,6 +13,13 @@ export const getById = (id) => {
            .where({id})
            .select
            .select('id', 'firstName', 'lastName','cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate')
+           .first()
+}
+
+export const getByEmailInstructor = (email) =>{
+    return db(TABLE) 
+           .where({email})
+           .select('id', 'firstName', 'email' ,'password')
            .first()
 }
 

@@ -1,8 +1,5 @@
 import { db } from "../services/db.js";
 
-/**
- * Base: Model responsável por interagir com banco de dados; realizando consulta, inserção, delete, ...
- */
 
 const TABLE = 'gymClient';
 
@@ -17,6 +14,7 @@ export const getById = (id) =>{
            .select('id','firstName', 'lastName', 'cpf', 'dateOfBirth', 'telephone' ,'email', 'gymPlan' ,'planStartDate', 'planEndDate', 'collaboratorRegistered' )
            .first()
 }
+
 
 export const save = (params) =>{
     return db(TABLE)

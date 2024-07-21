@@ -28,6 +28,7 @@ export const getCollaboratorById = async (req, res) => {
   }
 };
 
+
 export const saveCollaborator = async (req, res) => {
   try {
     const { email, password } = req.body;

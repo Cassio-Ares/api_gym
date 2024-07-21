@@ -1,6 +1,6 @@
-import { getALL, getById, save, updateClient } from "../models/gymClient.model";
-import { crypt } from "../utils/bcryptUtils";
-import { emailValid } from "../utils/emailValid";
+import { getALL, getById, save, updateClient } from "../models/gymClient.model.js";
+import { crypt } from "../utils/bcryptUtils.js";
+import { emailValid } from "../utils/emailValid.js";
 
 /**
  * Controller se comunica com model e é responsável por gerenciamento das lógicas das requisições

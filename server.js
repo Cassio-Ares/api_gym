@@ -4,6 +4,7 @@ dotenv.config()
 import { routerCompanyTeam } from "./src/routes/companyTeam.routes.js";
 import { routerInstructor } from "./src/routes/instructor.routes.js";
 import { routerGymClients } from "./src/routes/gymClient.routes.js";
+import { routerLogin } from "./src/routes/authLogin.routes.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.get("/test", (_, res)=>{
 app.use('/companyteam', routerCompanyTeam)
 app.use('/instructor', routerInstructor)
 app.use('/gymclients', routerGymClients)
+app.use('/login', routerLogin)
 
 app.listen(8080, ()=>{
     console.log("Listening on port 8080")
