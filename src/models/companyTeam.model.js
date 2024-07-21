@@ -1,17 +1,21 @@
+import { db } from "../services/db.js";
 
+/**
+ * Base: Model responsável por interagir com banco de dados; realizando consulta, inserção, delete, ...
+ */
 
 
 const TABLE = 'companyTeam';
 
 export const getAll = () =>{
   return db(TABLE)
-  .select('id', 'name', 'cpf', 'dateOfBirth','telephone' ,'email', 'positionCompany', 'admissionDate')
+  .select('id', 'firstName', 'lastName', 'cpf', 'dateOfBirth','telephone' ,'email', 'positionCompany', 'admissionDate')
 }
 
 export const getById = (id) =>{
     return db(TABLE)
         .where({id})
-        .select('id', 'name', 'cpf', 'dateOfBirth','telephone', 'email', 'positionCompany', 'admissionDate')
+        .select('id', 'firstName', 'lastName', 'cpf', 'dateOfBirth','telephone', 'email', 'positionCompany', 'admissionDate')
         .first();
 }
 

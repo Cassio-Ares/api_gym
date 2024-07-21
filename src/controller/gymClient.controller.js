@@ -2,7 +2,11 @@ import { getALL, getById, save, updateClient } from "../models/gymClient.model";
 import { crypt } from "../utils/bcryptUtils";
 import { emailValid } from "../utils/emailValid";
 
-export const gelAllClient = async (_, res) => {
+/**
+ * Controller se comunica com model e é responsável por gerenciamento das lógicas das requisições
+ */
+
+export const getAllClient = async (_, res) => {
   try {
     const data = await getALL();
     return res.status(200).json({ data });

@@ -2,6 +2,10 @@ import { getAll, getById, save, update } from "../models/instructor.model.js";
 import { crypt } from "../utils/bcryptUtils.js";
 import { emailValid } from "../utils/emailValid.js";
 
+/**
+ * Controller se comunica com model e é responsável por gerenciamento das lógicas das requisições
+ */
+
 export const getInstructors = async (_, res) => {
   try {
     const data = await getAll();

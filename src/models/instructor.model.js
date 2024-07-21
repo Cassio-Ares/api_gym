@@ -1,17 +1,21 @@
+import { db } from "../services/db.js";
 
+/**
+ * Base: Model responsável por interagir com banco de dados; realizando consulta, inserção, delete, ...
+ */
 
 const TABLE = 'instructor';
 
 export const getAll = () =>{
     return db(TABLE)
-           .select('id', 'name', 'cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate' )
+            .select('id', 'firstName', 'lastName' , 'cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate' )
 }
 
 export const getById = (id) => {
     return db(TABLE)
            .where({id})
            .select
-           .select('id', 'name', 'cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate')
+           .select('id', 'firstName', 'lastName','cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate')
            .first()
 }
 
@@ -25,3 +29,9 @@ export const update = (id, params) =>{
            .where({id})
            .update(params)
 }
+
+
+/**
+ * OBS:
+ *  para testar apos criar service comente select e rode  a api ira aparecer um data vazio
+ */
