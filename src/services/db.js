@@ -1,6 +1,7 @@
 import knex from "knex";
 import {dbConfig} from '../config/dbConfig.js'
 
+
 let conn;
 
 export const db = () =>{
