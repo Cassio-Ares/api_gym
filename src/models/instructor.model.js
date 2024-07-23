@@ -19,7 +19,7 @@ export const getById = (id) => {
 export const getByEmailInstructor = (email) =>{
     return db().table(TABLE) 
            .where({email})
-           .select('id', 'firstName', 'email' ,'password')
+           .select('id', 'name', 'email' ,'password')
            .first()
 }
 
