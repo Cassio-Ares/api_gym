@@ -3,6 +3,19 @@ import { getByEmailInstructor } from "../models/instructor.model.js";
 import { compareCrypt } from "../utils/bcryptUtils.js";
 import { createTokenInstructor, createTokenTeam } from "../utils/jwtUtils.js";
 
+/**
+ * Controller de login recebe via body um emai e uma senha 
+ * a partir do getBY ...(model) verifica se email existe em algum dos respectivos bancos 
+ * 
+ * a partir dai se for positivo ele irá comparar a senha com a senha crytografada do banco 
+ * e se for positivo irá criar um token 
+ * 
+ * @param {email, password} req 
+ * @param {token} res 
+ * @returns 
+ */
+
+
 export const authLogin = async (req, res) => {
   try {
     const { email, password } = req.body;

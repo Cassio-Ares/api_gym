@@ -16,6 +16,12 @@ export const getById = (id) => {
            .first()
 }
 
+/**
+ * get usado com where para buscar dados referentes ao email X
+ * @param {email}
+ * @returns 
+ */
+
 export const getByEmailInstructor = (email) =>{
     return db().table(TABLE) 
            .where({email})

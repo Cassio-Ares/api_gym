@@ -1,5 +1,10 @@
 import jwt from "jsonwebtoken";
 
+/**
+ * utils usado para criar uma cryptografia 
+ * ele recebe um id do /login e gera um token  
+ */
+
 export const createTokenTeam = (id) => {
   const idUser = { id };
   const options = { expiresIn: '1d' };
