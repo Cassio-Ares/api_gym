@@ -5,7 +5,7 @@ import { routerCompanyTeam } from "./src/routes/companyTeam.routes.js";
 import { routerInstructor } from "./src/routes/instructor.routes.js";
 import { routerGymClients } from "./src/routes/gymClient.routes.js";
 import { routerLogin } from "./src/routes/authLogin.routes.js";
-//import { dbConfig } from './src/config/dbConfig.js'   {teste para ver se banco conecta}
+// import { dbConfig } from './src/config/dbConfig.js'  {teste para ver se banco conecta}
 
 const app = express();
 
@@ -23,6 +23,6 @@ app.use('/gymclients', routerGymClients)
 app.use('/login', routerLogin)
 
 app.listen(8080, ()=>{
-   // console.log(dbConfig('client'))   {teste para ver se banco conecta}
+   // console.log(dbConfig('companyTeam'))   {teste para ver se banco conecta}
     console.log("Listening on port 8080")
 })

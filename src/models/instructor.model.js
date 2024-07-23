@@ -4,12 +4,12 @@ import { db } from "../services/db.js";
 const TABLE = 'instructor';
 
 export const getAll = () =>{
-    return db(TABLE)
+    return db().table(TABLE)
             .select('id', 'firstName', 'lastName' , 'cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate' )
 }
 
 export const getById = (id) => {
-    return db(TABLE)
+    return db().table(TABLE)
            .where({id})
            .select
            .select('id', 'firstName', 'lastName','cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate')
@@ -17,19 +17,19 @@ export const getById = (id) => {
 }
 
 export const getByEmailInstructor = (email) =>{
-    return db(TABLE) 
+    return db().table(TABLE) 
            .where({email})
            .select('id', 'firstName', 'email' ,'password')
            .first()
 }
 
 export const save = (params) =>{
-    return db(TABLE)
+    return db().table(TABLE)
            .insert(params)
 }
 
 export const update = (id, params) =>{
-    return db(TABLE)
+    return db().table(TABLE)
            .where({id})
            .update(params)
 }
