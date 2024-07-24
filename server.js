@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv"
 dotenv.config()
+import bearerToken from "express-bearer-token";
+
 import { routerCompanyTeam } from "./src/routes/companyTeam.routes.js";
 import { routerInstructor } from "./src/routes/instructor.routes.js";
 import { routerGymClients } from "./src/routes/gymClient.routes.js";
@@ -9,7 +11,9 @@ import { routerLogin } from "./src/routes/authLogin.routes.js";
 
 const app = express();
 
+app.use(bearerToken());
 app.use(express.json());
+
 
 app.get("/test", (_, res)=>{
     return res.send('Hello')

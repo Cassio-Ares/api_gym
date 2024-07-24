@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getInstructorById, getInstructors, saveInstructor } from "../controller/instructor.controller.js";
 
+
 /**
  * routes se comunica com controller e é resposável pelas definições dos endpoints usando crud (get, post, put, delete)
  */

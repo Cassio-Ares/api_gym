@@ -2,9 +2,7 @@ import { getALL, getById, save, updateClient } from "../models/gymClient.model.j
 import { crypt } from "../utils/bcryptUtils.js";
 import { emailValid } from "../utils/emailValid.js";
 
-/**
- * Controller se comunica com model e é responsável por gerenciamento das lógicas das requisições
- */
+
 
 export const getAllClient = async (_, res) => {
   try {

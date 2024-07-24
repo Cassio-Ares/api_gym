@@ -15,6 +15,7 @@ export const createTokenTeam = (id) => {
 export const verifyTokenTeam = (token) => {
   try {
     return jwt.verify(token, process.env.JWTSECRETTEAM);
+   
   } catch (error) {
     return null;
   }

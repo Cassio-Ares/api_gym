@@ -16,11 +16,7 @@ export const getById = (id) => {
            .first()
 }
 
-/**
- * get usado com where para buscar dados referentes ao email X
- * @param {email}
- * @returns 
- */
+
 
 export const getByEmailInstructor = (email) =>{
     return db().table(TABLE) 
@@ -41,7 +37,3 @@ export const update = (id, params) =>{
 }
 
 
-/**
- * OBS:
- *  para testar apos criar service comente select e rode  a api ira aparecer um data vazio
- */
