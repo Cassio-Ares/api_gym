@@ -5,8 +5,8 @@
 export const up = function(knex) {
   return knex.schema.createTable('typeOfPlan', (table)=>{
     table.bigIncrements('typePlan_id').primary(),
-    table.string('typeOfPlan'),
-    table.unique('typeOfPlan', 50)
+    table.string('typeOfPlan', 50),
+    table.unique('typeOfPlan')
   })
 };
 
