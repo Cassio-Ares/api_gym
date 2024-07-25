@@ -5,14 +5,14 @@ const TABLE = 'instructor';
 
 export const getAll = () =>{
     return db().table(TABLE)
-            .select('id', 'firstName', 'lastName' , 'cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate' )
+            .select('instructor_id', 'firstName', 'lastName' , 'cpf', 'telephone','email',  'modality_id','dateOfBirth','positionCompany','admissionDate' )
 }
 
 export const getById = (id) => {
     return db().table(TABLE)
            .where({id})
            .select
-           .select('id', 'firstName', 'lastName','cpf', 'dateOfBirth', 'telephone','email','positionCompany','modalities','admissionDate')
+           .select('instructor_id', 'firstName', 'lastName' , 'cpf', 'telephone','email',  'modality_id','dateOfBirth','positionCompany','admissionDate' )
            .first()
 }
 
@@ -21,7 +21,7 @@ export const getById = (id) => {
 export const getByEmailInstructor = (email) =>{
     return db().table(TABLE) 
            .where({email})
-           .select('id', 'name', 'email' ,'password')
+           .select('instructor_id', 'firstName', 'lastName' , 'email' ,'password')
            .first()
 }
 

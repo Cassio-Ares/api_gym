@@ -5,13 +5,13 @@ const TABLE = 'gymClient';
 
 export const getALL = () =>{
     return db().table(TABLE)
-           .select('id', 'firstName', 'lastName', 'cpf', 'dateOfBirth', 'telephone' ,'email', 'gymPlan' ,'planStartDate', 'planEndDate', 'collaboratorRegistered'  )
+           .select('gymClient_id', 'firstName', 'lastName', 'cpf', 'email', 'telephone' , 'dateOfBirth', 'plan_id' ,'planStartDate', 'planEndDate', 'collaborator_id'  )
 }
 
 export const getById = (id) =>{
     return db().table(TABLE)
            .where({id})
-           .select('id','firstName', 'lastName', 'cpf', 'dateOfBirth', 'telephone' ,'email', 'gymPlan' ,'planStartDate', 'planEndDate', 'collaboratorRegistered' )
+           .select('gymClient_id', 'firstName', 'lastName', 'cpf', 'email', 'telephone' , 'dateOfBirth', 'plan_id' ,'planStartDate', 'planEndDate', 'collaborator_id'  )
            .first()
 }
 

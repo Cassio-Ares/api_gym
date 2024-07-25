@@ -5,23 +5,21 @@ const TABLE = 'companyTeam';
 
 export const getAll = () =>{
   return db().table(TABLE)
-         // .select('id', 'name', 'email', 'created_at', 'updated_at');
-        //.select('id', 'firstName', 'lastName', 'cpf', 'dateOfBirth','telephone' ,'email', 'positionCompany', 'admissionDate')
+        .select('companyTeam_id', 'firstName', 'lastName', 'cpf', 'telephone','email', 'dateOfBirth', 'positionCompany', 'admissionDate')
 }
 
 export const getById = (id) =>{
     return db().table(TABLE)
         .where({id})
-        .select('id', 'firstName', 'lastName', 'cpf', 'dateOfBirth','telephone', 'email', 'positionCompany', 'admissionDate')
+        .select('companyTeam_id', 'firstName', 'lastName', 'cpf', 'telephone','email', 'dateOfBirth', 'positionCompany', 'admissionDate')
         .first();
 }
-
 
 
 export const getByEmailTeam = (email) =>{
     return db().table(TABLE)
            .where({email})
-           .select('id', 'name', 'email' ,'password' )
+           .select('companyTeam_id', 'name', 'email' ,'password' )
            .first()
 }
 
