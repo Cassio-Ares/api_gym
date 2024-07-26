@@ -12,3 +12,5 @@ routerGymClients.get('/', getAllClient)
 routerGymClients.get('/:id', getClientById)
 routerGymClients.post('/', saveClient)
 routerGymClients.put('/:id', update)
+
+export default routerGymClients

@@ -7,6 +7,8 @@ import { routerCompanyTeam } from "./src/routes/companyTeam.routes.js";
 import { routerInstructor } from "./src/routes/instructor.routes.js";
 import { routerGymClients } from "./src/routes/gymClient.routes.js";
 import { routerLogin } from "./src/routes/authLogin.routes.js";
+import { routerTypeOfPlans } from "./src/routes/typeOfPlans.routes.js";
+import {routerModality} from "./src/routes/modality.routes.js";
 // import { dbConfig } from './src/config/dbConfig.js'  {teste para ver se banco conecta}
 
 const app = express();
@@ -20,11 +22,19 @@ app.get("/test", (_, res)=>{
 })
 
 
-//routes api
+//route login
+app.use('/login', routerLogin)
+
+//routes users
 app.use('/companyteam', routerCompanyTeam)
 app.use('/instructor', routerInstructor)
 app.use('/gymclients', routerGymClients)
-app.use('/login', routerLogin)
+
+//routes plans
+app.use('/typeofplans', routerTypeOfPlans)
+app.use('/modality', routerModality)
+app.use('/plans')
+
 
 app.listen(8080, ()=>{
    // console.log(dbConfig('companyTeam'))   {teste para ver se banco conecta}
