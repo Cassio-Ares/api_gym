@@ -9,6 +9,7 @@ import { routerGymClients } from "./src/routes/gymClient.routes.js";
 import { routerLogin } from "./src/routes/authLogin.routes.js";
 import { routerTypeOfPlans } from "./src/routes/typeOfPlans.routes.js";
 import {routerModality} from "./src/routes/modality.routes.js";
+import { routerPlans } from "./src/routes/plans.routes.js";
 // import { dbConfig } from './src/config/dbConfig.js'  {teste para ver se banco conecta}
 
 const app = express();
@@ -33,7 +34,7 @@ app.use('/gymclients', routerGymClients)
 //routes plans
 app.use('/typeofplans', routerTypeOfPlans)
 app.use('/modality', routerModality)
-
+app.use('/plans', routerPlans)
 
 
 app.listen(8080, ()=>{
