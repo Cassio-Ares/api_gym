@@ -1,16 +1,16 @@
 import { db } from "../services/db.js";
 
-const TABLE = "modality";
+const TABLE = "muscleGroup";
 
 export const getAll = () => {
-  return db().table(TABLE).select("modality_id", "modality");
+  return db().table(TABLE).select("muscle_id", "muscle");
 };
 
 export const getById = (id) => {
   return db()
     .table(TABLE)
-    .where("modality_id", id)
-    .select("modality_id", "modality")
+    .where("muscle_id", id)
+    .select("muscle_id", "muscle")
     .first();
 };
 
@@ -19,9 +19,9 @@ export const save = (params) => {
 };
 
 export const update = (id, params) => {
-  return db().table(TABLE).where("modality_id", id).update(params);
+  return db().table(TABLE).where("muscle_id", id).update(params);
 };
 
 export const remove = (id) => {
-  return db().table(TABLE).where("modality_id", id).delete();
+  return db().table(TABLE).where("muscle_id", id).delete();
 };

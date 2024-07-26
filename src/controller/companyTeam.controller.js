@@ -2,13 +2,12 @@ import { getAll, getById, save, update } from "../models/companyTeam.model.js";
 import { crypt } from "../utils/bcryptUtils.js";
 import { emailValid } from "../utils/emailValid.js";
 
-
 export const getAllTeam = async (_, res) => {
   try {
     const data = await getAll();
-    return res.status(200).json( {data} );
+    return res.status(200).json({ data });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -25,11 +24,10 @@ export const getCollaboratorById = async (req, res) => {
   }
 };
 
-
 export const saveCollaborator = async (req, res) => {
   try {
     const { email, password } = req.body;
-  
+
     if (email && !emailValid(email)) {
       return res.status(400).json({ error: "Invalid email format" });
     }
@@ -45,8 +43,8 @@ export const saveCollaborator = async (req, res) => {
       email: email,
       password: cryptPass,
     };
- 
-  console.log(data)
+
+    console.log(data);
     const resultSave = await save(data);
     res.status(201).json({ resultSave });
   } catch (error) {
@@ -65,7 +63,7 @@ export const updateDateCollaborator = async (req, res) => {
       data.email = email;
     }
 
-    if(password) {
+    if (password) {
       const cryptPass = await crypt(password);
       data.password = cryptPass;
     }

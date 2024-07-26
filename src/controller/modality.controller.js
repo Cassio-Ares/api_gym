@@ -1,4 +1,10 @@
-import { getAll, getById, remove, save, update } from "../models/modality.model.js";
+import {
+  getAll,
+  getById,
+  remove,
+  save,
+  update,
+} from "../models/modality.model.js";
 
 export const getAllModality = async (_, res) => {
   try {
@@ -38,7 +44,7 @@ export const updateModality = async (req, res) => {
 
 export const removeModality = async (req, res) => {
   try {
-    const data = await remove(req.params.id)
+    const data = await remove(req.params.id);
     res.status(200).json({ data });
   } catch (error) {}
 };

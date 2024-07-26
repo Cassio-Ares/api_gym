@@ -1,8 +1,11 @@
-import { getALL, getById, save, updateClient } from "../models/gymClient.model.js";
+import {
+  getALL,
+  getById,
+  save,
+  updateClient,
+} from "../models/gymClient.model.js";
 import { crypt } from "../utils/bcryptUtils.js";
 import { emailValid } from "../utils/emailValid.js";
-
-
 
 export const getAllClient = async (_, res) => {
   try {
@@ -34,51 +37,47 @@ export const saveClient = async (req, res) => {
       res.status(404).json({ message: "to do" });
     }
 
-    if(!password){
+    if (!password) {
       return res.status(400).json({ error: "Password is required" });
     }
 
     const passCrypt = crypt(password);
 
-  const data = {
-    ...req.body,
-    email:email,
-    password:passCrypt
-  }
+    const data = {
+      ...req.body,
+      email: email,
+      password: passCrypt,
+    };
 
-  const client = await save(data);
-  
-   res.status(201).json({client})
+    const client = await save(data);
 
+    res.status(201).json({ client });
   } catch (error) {
-   //to do
+    //to do
   }
 };
 
+export const update = async (req, res) => {
+  try {
+    const { email, password, ...rest } = req.body;
+    const data = { ...rest };
 
-export const update = async (req, res) =>{
-   try {
-      const {email, password, ...rest} = req.body;
-      const data = {...rest}
-     
-      if(email && !emailValid(email)){
-         return res.status(400).json({ error: "Invalid email format" });
-      }else if(email && emailValid(email)){
-        data.email = email
-      }
+    if (email && !emailValid(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    } else if (email && emailValid(email)) {
+      data.email = email;
+    }
 
-      if(password){
-         const passCrypt = await crypt(password);
-         data.password = passCrypt
-      }
+    if (password) {
+      const passCrypt = await crypt(password);
+      data.password = passCrypt;
+    }
 
-      const updateDate = await updateClient(req.params.id, data)
-      if(updateDate){
-         return res.status(200).json({updateDate})
-      }
-
-   } catch (error) {
-      // to do 
-   }
-   
-}
+    const updateDate = await updateClient(req.params.id, data);
+    if (updateDate) {
+      return res.status(200).json({ updateDate });
+    }
+  } catch (error) {
+    // to do
+  }
+};
