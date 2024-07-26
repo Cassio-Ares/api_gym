@@ -1,4 +1,4 @@
-import { getAll, getById, remove, save, update } from "../models/modality.model";
+import { getAll, getById, remove, save, update } from "../models/modality.model.js";
 
 export const getAllModality = async (_, res) => {
   try {

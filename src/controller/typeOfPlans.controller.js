@@ -1,4 +1,4 @@
-import { getAll, getById, remove, save, update } from "../models/typeOfPlans.model"
+import { getAll, getById, remove, save, update } from "../models/typeOfPlans.model.js"
 
 
 export const getAllTypePlans = async (_, res) =>{
@@ -16,7 +16,7 @@ export const getTypeOfPlansById = async (req, res) =>{
      const data = await getById(req.params.id)
      return res.status(200).json({data})
   } catch (error) {
-    
+    console.log(error)
   }
 }
 
@@ -26,7 +26,7 @@ export const saveTypeOfPlans = async (req, res) =>{
         const typeOfPlan = await save(data)
         return res.status(201).json({typeOfPlan})
     } catch (error) {
-        
+          console.log(error)
     }
 }
 
@@ -36,7 +36,7 @@ export const updateTypeOfPlas = async (req, res) =>{
         const typeOfPlan = await update(req.params.id,data)
         return res.status(201).json({typeOfPlan})
     } catch (error) {
-        
+      
     }
 }
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllTypePlans, getTypeOfPlansById, removeTypeOfPlans, saveTypeOfPlans, updateTypeOfPlas } from "../controller/typeOfPlans.controller";
+import { getAllTypePlans, getTypeOfPlansById, removeTypeOfPlans, saveTypeOfPlans, updateTypeOfPlas } from "../controller/typeOfPlans.controller.js";
 
 
 export const  routerTypeOfPlans = Router()

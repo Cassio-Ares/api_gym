@@ -10,7 +10,7 @@ export const getAll = () =>{
 
 export const getById = (id) =>{
     return db().table(TABLE)
-        .where({id})
+        .where('companyTeam_id', id)
         .select('companyTeam_id', 'firstName', 'lastName', 'cpf', 'telephone','email', 'dateOfBirth', 'positionCompany', 'admissionDate')
         .first();
 }
@@ -29,7 +29,7 @@ export const save = (params) => {
 
 export const update = (id, params) =>{
     return db().table(TABLE)
-           .where({id})
-           .update({params})
+           .where('companyTeam_id', id)
+           .update(params)
 }
 

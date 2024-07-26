@@ -33,7 +33,7 @@ app.use('/gymclients', routerGymClients)
 //routes plans
 app.use('/typeofplans', routerTypeOfPlans)
 app.use('/modality', routerModality)
-app.use('/plans')
+
 
 
 app.listen(8080, ()=>{

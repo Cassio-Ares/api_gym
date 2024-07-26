@@ -1,4 +1,4 @@
-import { db } from "../services/db";
+import { db } from "../services/db.js";
 
 
 const TABLE = 'typeOfPlan';
@@ -12,26 +12,26 @@ export const getAll = () =>{
 export const getById = (id) =>{
     return db()
            .table(TABLE)
-           .where({id})
+           .where('typePlan_id', id)
            .select('typePlan_id', 'typeOfPlan')
 }
 
 export const save = (params) =>{
    return db()
           .table(TABLE)
-          .insert({params})
+          .insert(params)
 }
 
 export const update = (id ,params) =>{
     return db()
            .table(TABLE)
-           .where({id})
-           .update({params})
+           .where('typePlan_id', id)
+           .update(params)
  }
 
  export const remove = (id) =>{
     return db()
            .table(TABLE)
-           .where({id})
+           .where('typePlan_id', id)
            .delete()
  }
