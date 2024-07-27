@@ -10,7 +10,7 @@ export const up = function (knex) {
       table.string("cpf", 11).notNullable(),
       table.string("telephone",15).notNullable(),
       table.string("email", 150).notNullable(),
-      table.string("password", 50).notNullable(),
+      table.string("password", 250).notNullable(),
       table.date("dateOfBirth").notNullable(),
       table.string("positionCompany").notNullable(),
       table.date("admissionDate"),

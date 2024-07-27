@@ -3,7 +3,7 @@ import {
   getAllTeam,
   getCollaboratorById,
   saveCollaborator,
-  updateDateCollaborator,
+  updateDataCollaborator,
 } from "../controller/companyTeam.controller.js";
 
 /**
@@ -15,6 +15,6 @@ export const routerCompanyTeam = Router();
 routerCompanyTeam.get("/", getAllTeam);
 routerCompanyTeam.get("/:id", getCollaboratorById);
 routerCompanyTeam.post("/", saveCollaborator);
-routerCompanyTeam.put("/:id", updateDateCollaborator);
+routerCompanyTeam.put("/:id", updateDataCollaborator);
 
 export default routerCompanyTeam;

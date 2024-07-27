@@ -10,7 +10,7 @@ export const up = function(knex) {
        table.string('cpf', 11).notNullable(),
        table.string('email', 100).notNullable(),
        table.string('telephone', 15).notNullable(),
-       table.string('password', 100).notNullable(),
+       table.string('password', 255).notNullable(),
        table.date('dateOfBirth').notNullable(),
        table.bigInteger('plan_id').unsigned(),
        table.foreign('plan_id').references('plan_id').inTable('plans').onDelete('CASCADE'),

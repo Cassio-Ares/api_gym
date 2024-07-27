@@ -12,5 +12,4 @@ export const dbConfig = {
     },
   };
 
-//to do dotenv
 

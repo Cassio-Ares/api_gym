@@ -19,7 +19,16 @@ export const getById = (id) => {
   return db()
     .table(TABLE)
     .where("plan_id", id)
-    .select("plan_id", "typePlan_id", "modality_id", "planValue");
+    .select("*")
+    .first()
+};
+
+export const getByIdDuration = (id) => {
+  return db()
+      .table(TABLE) 
+      .where("plan_id", id)
+      .join("typeOfPlan", "plans.typePlan_id", "=", "typeOfPlan.typePlan_id")
+      .select("typeOfPlan.duration")
 };
 
 export const save = (params) => {

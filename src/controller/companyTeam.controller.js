@@ -1,6 +1,7 @@
-import { getAll, getById, save, update } from "../models/companyTeam.model.js";
 import { crypt } from "../utils/bcryptUtils.js";
 import { emailValid } from "../utils/emailValid.js";
+import { stringDate } from "../utils/stringDate.js";
+import { getAll, getById, save, update } from "../models/companyTeam.model.js";
 
 export const getAllTeam = async (_, res) => {
   try {
@@ -26,10 +27,10 @@ export const getCollaboratorById = async (req, res) => {
 
 export const saveCollaborator = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, dateOfBirth, admissionDate } = req.body;
 
     if (email && !emailValid(email)) {
-      return res.status(400).json({ error: "Invalid email format" });
+      dateOfBirth, admissionDate;
     }
 
     if (!password) {
@@ -38,23 +39,31 @@ export const saveCollaborator = async (req, res) => {
 
     const cryptPass = await crypt(password);
 
+    if (!dateOfBirth && !admissionDate) {
+      return res.status(400).json({ error: "Password is required" }); // to do
+    }
+
+    const birth = stringDate(dateOfBirth);
+    const admission = stringDate(admissionDate);
+
     const data = {
       ...req.body,
       email: email,
       password: cryptPass,
+      dateOfBirth: birth,
+      admissionDate: admission,
     };
 
-    console.log(data);
     const resultSave = await save(data);
     res.status(201).json({ resultSave });
   } catch (error) {
-    //to do
+    console.log(error);
   }
 };
 
-export const updateDateCollaborator = async (req, res) => {
+export const updateDataCollaborator = async (req, res) => {
   try {
-    const { email, password, ...rest } = req.body;
+    const { email, password, dateOfDismissal, ...rest } = req.body;
     let data = { ...rest };
 
     if (email && !emailValid(email)) {
@@ -68,10 +77,15 @@ export const updateDateCollaborator = async (req, res) => {
       data.password = cryptPass;
     }
 
-    const updataDate = await update(req.params.id, data);
+    if (dateOfDismissal) {
+      const dismissal = stringDate(dateOfDismissal);
+      data.dateOfDismissal = dismissal;
+    }
 
-    if (updataDate) {
-      return res.status(200).json({ updataDate });
+    const updataData = await update(req.params.id, data);
+
+    if (updataData) {
+      return res.status(200).json({ updataData });
     } else {
       res.status(404).json({ message: "to do" });
     }
