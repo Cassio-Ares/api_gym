@@ -18,6 +18,7 @@ export const up = function(knex) {
        table.date('planEndDate'),
        table.bigInteger('collaborator_id').unsigned(),
        table.foreign('collaborator_id').references('companyTeam_id').inTable('companyTeam');
+       table.timestamps(true, true)
        table.unique(['cpf', 'collaborator_id'])
    });
    

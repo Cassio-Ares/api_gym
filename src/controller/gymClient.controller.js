@@ -38,17 +38,17 @@ export const saveClient = async (req, res) => {
       email,
       password,
       plan_id,
-      companyTeam_id,
+      collaborator_id,
       dateOfBirth,
       planStartDate,
     } = req.body;
 
-    if (!plan_id || !companyTeam_id) {
-      res.status(404).json({ message: "to do" });
+    if (!collaborator_id) {
+      res.status(404).json({ message: "to" });
     }
 
     if (email && !emailValid(email)) {
-      res.status(404).json({ message: "to do" });
+      res.status(404).json({ message: "to do emsia" });
     }
 
     if (!password) {
@@ -56,22 +56,22 @@ export const saveClient = async (req, res) => {
     }
 
     let formDateStartPlan;
-    if (planStartDate) {
+    let formPlanEndDate;
+    if (plan_id) {
       formDateStartPlan = stringDate(planStartDate);
+
+      // rota para calculo de data final do plano
+      const [dataDuration] = await getByIdDuration(plan_id);
+      formPlanEndDate = durationCalculation(
+        formDateStartPlan,
+        dataDuration.duration
+      );
     }
 
     let formDateBirth;
     if (dateOfBirth) {
       formDateBirth = stringDate(dateOfBirth);
     }
-    
-  // rota para calculo de data final do plano 
-
-   const [dataTest] = await getByIdDuration(plan_id)
-
-   let planEndDate = durationCalculation(formDateStartPlan, dataTest.duration)
-
-   
 
     const passCrypt = await crypt(password);
 
@@ -81,20 +81,20 @@ export const saveClient = async (req, res) => {
       password: passCrypt,
       planStartDate: formDateStartPlan,
       dateOfBirth: formDateBirth,
+      planEndDate: formPlanEndDate,
     };
 
-  
-   const client = await save(data);
+    const client = await save(data);
 
     res.status(201).json({ client });
   } catch (error) {
-  
+    console.log(error);
   }
 };
 
 export const update = async (req, res) => {
   try {
-    const { email, password, planStartDate , ...rest } = req.body;
+    const { email, password, planStartDate, plan_id, ...rest } = req.body;
     const data = { ...rest };
 
     if (email && !emailValid(email)) {
@@ -108,9 +108,18 @@ export const update = async (req, res) => {
       data.password = passCrypt;
     }
 
-    if(planStartDate){
-      const newPlan = stringDate(planStartDate)
-      data.planStartDate = newPlan
+    if (plan_id) {
+      const newPlanStart = stringDate(planStartDate);
+
+      const [dataDuration] = await getByIdDuration(plan_id);
+
+      const newPlanEndDate = durationCalculation(
+        newPlanStart,
+        dataDuration.duration
+      );
+
+      data.planStartDate = newPlanStart;
+      date.planEndDate = newPlanEndDate;
     }
 
     const updateDate = await updateClient(req.params.id, data);
