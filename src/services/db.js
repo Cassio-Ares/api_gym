@@ -8,7 +8,7 @@ export const db = () =>{
     if(!conn){
         conn = knex(dbConfig)
     }
-    console.log('Database connection established');
+
     return conn;
 }
 

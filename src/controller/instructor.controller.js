@@ -29,7 +29,7 @@ export const getInstructorById = async (req, res) => {
 
 export const saveInstructor = async (req, res) => {
   try {
-    const {firstName, lastName, cpf, telephone, dateOfBirth, admissionDate, email, password } = req.body;
+    const {firstName, lastName, cpf, telephone, dateOfBirth, admissionDate, positionCompany, email, password } = req.body;
 
     const validation = isRequired( res, firstName, lastName, cpf, telephone, dateOfBirth)
     if(validation) return
@@ -42,10 +42,14 @@ export const saveInstructor = async (req, res) => {
       return res.status(400).json({ message: "Cadastre uma senha por favor" });
     }
 
-    const passCrypt = crypt(password);
+    const passCrypt = await crypt(password);
 
   if(!admissionDate){
     return res.status(404).json({message: "Informe por favor a data de admissão."})
+  }
+
+  if(!positionCompany){
+    return res.status(400).json({ error: "Cadastre o cargo do colaborador." });
   }
 
   const birth = stringDate(dateOfBirth)
@@ -59,6 +63,7 @@ export const saveInstructor = async (req, res) => {
       admissionDate: admission
     };
 
+  
     const resultData = await save(data);
     return res.status(201).json({ resultData });
   } catch (error) {

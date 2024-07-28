@@ -28,7 +28,7 @@ export const getCollaboratorById = async (req, res) => {
 
 export const saveCollaborator = async (req, res) => {
   try {
-    const {firstName, lastName, cpf, telephone, email, password, dateOfBirth, admissionDate } = req.body;
+    const {firstName, lastName, cpf, telephone, email, password, positionCompany, dateOfBirth, admissionDate } = req.body;
 
     const validation = isRequired(res, firstName, lastName, cpf, telephone, dateOfBirth )
     if(validation) return
@@ -39,6 +39,10 @@ export const saveCollaborator = async (req, res) => {
 
     if (!password) {
       return res.status(400).json({ error: "Cadastre uma senha por favor." });
+    }
+
+    if(!positionCompany){
+      return res.status(400).json({ error: "Cadastre o cargo do colaborador." });
     }
 
     const cryptPass = await crypt(password);

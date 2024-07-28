@@ -3,6 +3,10 @@
  * @returns dado no formato de data 
  */
 
-export const stringDate = (date) => {
-  return new Date(date);
+export const stringDate = (dateStr) => {
+  const [day, month, year] = dateStr.split('/'); 
+ 
+  const newDate = new Date(year, month-1, day)
+
+  return newDate
 };

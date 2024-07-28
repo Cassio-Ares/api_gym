@@ -73,8 +73,6 @@ export const saveClient = async (req, res) => {
     let formPlanEndDate;
     if (plan_id) {
       formDateStartPlan = stringDate(planStartDate);
-
-      // rota para calculo de data final do plano
       const [dataDuration] = await getByIdDuration(plan_id);
       formPlanEndDate = durationCalculation(
         formDateStartPlan,
@@ -82,22 +80,20 @@ export const saveClient = async (req, res) => {
       );
     }
 
-    let formDateBirth;
-    if (dateOfBirth) {
-      formDateBirth = stringDate(dateOfBirth);
-    }
-
+    console.log('dtStr:', dateOfBirth)
     const passCrypt = await crypt(password);
+    const birth = stringDate(dateOfBirth)
+    console.log('ret:', birth)
 
     const data = {
       ...req.body,
       email: email,
       password: passCrypt,
       planStartDate: formDateStartPlan,
-      dateOfBirth: formDateBirth,
+      dateOfBirth: birth, 
       planEndDate: formPlanEndDate,
     };
-
+ 
     const client = await save(data);
 
     res.status(201).json({ client });
