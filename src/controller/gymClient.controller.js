@@ -9,32 +9,38 @@ import {
 import { stringDate } from "../utils/stringDate.js";
 import { getByIdDuration } from "../models/plans.model.js";
 import { durationCalculation } from "../utils/durationCalculation.js";
+import { errorBanco } from "../error/catch.js";
+import { isRequired } from "../error/errorrequired.js";
 
 export const getAllClient = async (_, res) => {
   try {
     const data = await getALL();
     return res.status(200).json({ data });
   } catch (error) {
-    //to do
+    errorBanco(res, error);
   }
 };
 
 export const getClientById = async (req, res) => {
   try {
     const data = await getById(req.params.id);
-    if (data) {
-      res.status(200).json({ data });
-    } else {
-      res.status(404).json({ message: "to do" });
+    if (!data) {
+      return res.status(404).json({ message: "'Cliente não encontrado" });
     }
+
+    return res.status(200).json({ data });
   } catch (error) {
-    // to do
+    errorBanco(res, error);
   }
 };
 
 export const saveClient = async (req, res) => {
   try {
     const {
+      firstName,
+      lastName,
+      cpf,
+      telephone,
       email,
       password,
       plan_id,
@@ -42,17 +48,25 @@ export const saveClient = async (req, res) => {
       dateOfBirth,
       planStartDate,
     } = req.body;
+    
+    //validações para dados obg
+    const validation = isRequired(res, firstName, lastName, cpf, telephone, dateOfBirth )
+    if(validation) return
 
     if (!collaborator_id) {
-      res.status(404).json({ message: "to" });
+      return res
+        .status(400)
+        .json({
+          message: "Registre o colaborador que fez o cadastro, por favor.",
+        });
     }
 
     if (email && !emailValid(email)) {
-      res.status(404).json({ message: "to do emsia" });
+      res.status(422).json({ message: "E-mail inválido" });
     }
 
     if (!password) {
-      return res.status(400).json({ error: "Password is required" });
+      return res.status(400).json({ message: "Cadastre uma senha por favor" });
     }
 
     let formDateStartPlan;
@@ -88,7 +102,7 @@ export const saveClient = async (req, res) => {
 
     res.status(201).json({ client });
   } catch (error) {
-    console.log(error);
+    errorBanco(res, error);
   }
 };
 
@@ -98,7 +112,7 @@ export const update = async (req, res) => {
     const data = { ...rest };
 
     if (email && !emailValid(email)) {
-      return res.status(400).json({ error: "Invalid email format" });
+      return res.status(422).json({ message: "E-mail inválido" });
     } else if (email && emailValid(email)) {
       data.email = email;
     }
@@ -123,10 +137,12 @@ export const update = async (req, res) => {
     }
 
     const updateDate = await updateClient(req.params.id, data);
-    if (updateDate) {
+    if (!updateDate) {
+      return res.status(404).json({message:"Aluno não encontrado."})
+    }else{
       return res.status(200).json({ updateDate });
     }
   } catch (error) {
-    // to do
+    errorBanco(res, error);
   }
 };

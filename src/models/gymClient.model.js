@@ -35,7 +35,7 @@ export const getById = (id) => {
       "plan_id",
       "planStartDate",
       "planEndDate",
-      "companyTeam_id"
+      "collaborator_id"
     )
     .first();
 };

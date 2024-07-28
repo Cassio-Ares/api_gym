@@ -2,45 +2,49 @@ import { crypt } from "../utils/bcryptUtils.js";
 import { emailValid } from "../utils/emailValid.js";
 import { stringDate } from "../utils/stringDate.js";
 import { getAll, getById, save, update } from "../models/companyTeam.model.js";
+import { errorBanco } from "../error/catch.js";
+import { isRequired } from "../error/errorrequired.js";
 
 export const getAllTeam = async (_, res) => {
   try {
     const data = await getAll();
     return res.status(200).json({ data });
   } catch (error) {
-    console.log(error);
+    errorBanco(res, error);
   }
 };
 
 export const getCollaboratorById = async (req, res) => {
   try {
     const data = await getById(req.params.id);
-    if (data) {
-      return res.status(200).json({ data });
-    } else {
-      return res.status().json({ message: "to do " });
+    if (!data) {
+      return res.status(404).json({ message: "Cliente não encontrado." });
     }
+    return res.status(200).json({ data });
   } catch (error) {
-    //to do
+    errorBanco(res, error);
   }
 };
 
 export const saveCollaborator = async (req, res) => {
   try {
-    const { email, password, dateOfBirth, admissionDate } = req.body;
+    const {firstName, lastName, cpf, telephone, email, password, dateOfBirth, admissionDate } = req.body;
+
+    const validation = isRequired(res, firstName, lastName, cpf, telephone, dateOfBirth )
+    if(validation) return
 
     if (email && !emailValid(email)) {
-      dateOfBirth, admissionDate;
+      res.status(422).json({ message: "E-mail inválido" });
     }
 
     if (!password) {
-      return res.status(400).json({ error: "Password is required" });
+      return res.status(400).json({ error: "Cadastre uma senha por favor." });
     }
 
     const cryptPass = await crypt(password);
 
-    if (!dateOfBirth && !admissionDate) {
-      return res.status(400).json({ error: "Password is required" }); // to do
+    if (!admissionDate) {
+      return res.status(400).json({ message: "Cadastre a data de admissão por favor." }); 
     }
 
     const birth = stringDate(dateOfBirth);
@@ -57,7 +61,7 @@ export const saveCollaborator = async (req, res) => {
     const resultSave = await save(data);
     res.status(201).json({ resultSave });
   } catch (error) {
-    console.log(error);
+    errorBanco(res, error);
   }
 };
 
@@ -67,7 +71,7 @@ export const updateDataCollaborator = async (req, res) => {
     let data = { ...rest };
 
     if (email && !emailValid(email)) {
-      return res.status(400).json({ error: "Invalid email format" });
+      return res.status(400).json({ message: "E-mail inválido" });
     } else if (email && emailValid(email)) {
       data.email = email;
     }
@@ -84,12 +88,12 @@ export const updateDataCollaborator = async (req, res) => {
 
     const updataData = await update(req.params.id, data);
 
-    if (updataData) {
-      return res.status(200).json({ updataData });
+    if (!updataData) {
+      return res.status(404).json({ message: "Colaborador não encontrado." });
     } else {
-      res.status(404).json({ message: "to do" });
-    }
+      return res.status(200).json({ updataData });
+    } 
   } catch (error) {
-    //to do
+    errorBanco(res, error);
   }
 };

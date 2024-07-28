@@ -1,3 +1,4 @@
+import { errorBanco } from "../error/catch.js";
 import {
   getAll,
   getById,
@@ -11,25 +12,21 @@ export const getAllPlans = async (_, res) => {
     const data = await getAll();
     return res.status(200).json({ data });
   } catch (error) {
-    console.log(error);
+    errorBanco(res, error);
   }
 };
 
 export const getPlanById = async (req, res) => {
   try {
     const plan = await getById(req.params.id);
-    if (plan) {
-      return res.status(200).json({ plan });
-    } else {
-      return res.status(404).json({ message: "to do" });
+    if (!plan) {
+      return res.status(404).json({ message: "Plano não encontrado." });
     }
-  } catch (error) {}
+    return res.status(200).json({ plan });
+  } catch (error) {
+    errorBanco(res, error);
+  }
 };
-
-/**
- * como já citei os dados na minha migration aqui para buscar a foreing keys
- * só preciso citar o nome delas.
- */
 
 export const savePlan = async (req, res) => {
   try {
@@ -44,16 +41,21 @@ export const savePlan = async (req, res) => {
     const newPlan = await save({ plan, typePlan_id, modality_id, planValue });
 
     return res.status(201).json(newPlan);
-  } catch (error) {}
+  } catch (error) {
+    errorBanco(res, error);
+  }
 };
 
 export const updatePlan = async (req, res) => {
   try {
     const data = req.body;
     const plan = await update(req.params.id, data);
+    if(!plan){
+      return res.status(404).json({ message: "Plano não encontrado." });
+    }
     return res.status(200).json({ plan });
   } catch (error) {
-    console.log(error);
+    errorBanco(res, error);
   }
 };
 
@@ -61,5 +63,7 @@ export const removePlan = async (req, res) => {
   try {
     const data = await remove(req.params.id);
     return res.status(200).json({ data });
-  } catch (error) {}
+  } catch (error) {
+    errorBanco(res, error);
+  }
 };
