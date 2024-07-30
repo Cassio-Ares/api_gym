@@ -77,7 +77,7 @@ export const updateInstructor = async (req, res) => {
     const data = { ...rest };
 
     if (email && !emailValid(email)) {
-      return res.status(400).json({ message: "E-mail inválido" });
+      return res.status(422).json({ message: "E-mail inválido" });
     } else if (email && emailValid(email)) {
       data.email = email;
     }

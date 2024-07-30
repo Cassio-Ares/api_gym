@@ -40,7 +40,7 @@ export const getByEmailTeam = (email) => {
   return db()
     .table(TABLE)
     .where({ email })
-    .select("companyTeam_id", "name", "email", "password")
+    .select("companyTeam_id", "firstName", "lastName" ,"email", "password")
     .first();
 };
 

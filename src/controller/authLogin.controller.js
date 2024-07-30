@@ -11,6 +11,8 @@ export const authLogin = async (req, res) => {
 
     let token;
 
+   console.log(team.password)
+
     if (!team && !instructor) {
       return res
         .status(404)
@@ -19,8 +21,9 @@ export const authLogin = async (req, res) => {
 
     if (team) {
       const passwordMatch = await compareCrypt(password, team.password);
+
       if (!passwordMatch) {
-        return res.status(401).json({ message: "Password não encontrado" });
+        return res.status(401).json({ message: "Email ou password não encontrado" });
       }
       console.log(team.id);
       token = createTokenTeam(team.id);

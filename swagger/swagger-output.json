@@ -1,0 +1,1100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Api ADM_GYM",
+    "description": "API para gerenciar a equipe da empresa",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/login": {
+      "post": {
+        "description": "Rota de login com autenticação que permite acesso a administradores e professores com base em um token de autenticação. O sistema verifica o email e a senha e retorna um token JWT se as credenciais forem válidas",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "exemplo@exemplo.com "
+                },
+                "password": {
+                  "type": "string",
+                  "example": "exemplo123"
+                }
+              },
+              "required": ["email", "password"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login bem-sucedido, token de autenticação retornado.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Login bem-sucedido"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email ou senha incorretos.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email ou senha não encontrados"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Erro interno do servidor.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro no servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/companyteam": {
+      "get": {
+        "description": "Registro de membros da equipe e seus respectivos cargos.",
+        "responses": {
+          "200": {
+            "description": "Cadastro ok."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "post": {
+        "description": "Cadastrar um novo colaborador.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Tanjiro"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Kamado"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "000000000-00"
+                },
+                "telephone": {
+                  "type": "string",
+                  "example": "00 00000 0000"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "collaborator@gym.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password333"
+                },
+                "positionCompany": {
+                  "type": "string",
+                  "example": "adm"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                },
+                "admissionDate": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Verifique os dados se são validos ou se foram preenchidos."
+          },
+          "422": {
+            "description": "E-mail inválido."
+          }
+        }
+      }
+    },
+    "/companyteam/{id}": {
+      "get": {
+        "description": "Busca usando id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Colaborador não encontrado."
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "exemplo.exemplo.com"
+                },
+                "password": {
+                  "example": "exemplo123"
+                },
+                "dateOfDismissal": {
+                  "example": "00/00/00"
+                },
+                "rest": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Verifique os dados se são validos ou se foram preenchidos."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Colaborador não encontrado."
+          }
+        }
+      }
+    },
+    "/modality": {
+      "get": {
+        "description": "Busque as modalidades que a academia oferce.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "post": {
+        "description": "Cadastre uma nova modalidade.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "modality": {
+                  "type": "string",
+                  "example": "Musculação"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/modality/{id}": {
+      "get": {
+        "description": "Busque uma modalidades a partir do ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Modalidade não encontrada."
+          }
+        }
+      },
+      "put": {
+        "description": "Altere uma modalidade com o ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Modalidade não encontrada."
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a modalidade com o ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/typeofplans": {
+      "get": {
+        "description": "Busque os tipos de planos.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "post": {
+        "description": "Cadastre um novo tipo de plano.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "typeOfPlan": {
+                  "type": "string",
+                  "example": "Mensal"
+                },
+                "duration": {
+                  "type": "number",
+                  "example": 30
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Verifique se tipo de plano e sua duração foram preenchidos corretamente."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/typeofplans/{id}": {
+      "get": {
+        "description": "Busque tipo de plano com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Tipo de plano não encontrado."
+          }
+        }
+      },
+      "put": {
+        "description": "ALtere o plano com o ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Tipo de plano não encontrado."
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete o tipo de plano com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/plans": {
+      "get": {
+        "description": "Busque os planos que a academia oferece.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "post": {
+        "description": "Crie novos planos para a academia.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "plan": {
+                  "type": "string",
+                  "example": "Operação Verão"
+                },
+                "typePlan_id": {
+                  "type": "typePlan_id",
+                  "example": 1
+                },
+                "modality_id": {
+                  "type": "modality_id",
+                  "example": 1
+                },
+                "planValue": {
+                  "type": "integer",
+                  "example": 10000
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Todos os campos são obrigatórios"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/plans/{id}": {
+      "get": {
+        "description": "Busque o plano com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Plano não encontrado."
+          }
+        }
+      },
+      "put": {
+        "description": "Altere o plano com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete o plano com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/gymclients": {
+      "get": {
+        "description": "Busque todos os alunos da academia",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "post": {
+        "description": "Crie um novo aluno.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "GymAluno "
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Sobrenome gymAluno"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "000000000-76"
+                },
+                "telephone": {
+                  "type": "string",
+                  "example": "00 00000 0000"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "alunoGym@aluno.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "senha123"
+                },
+                "plan_id": {
+                  "type": "plan_id",
+                  "example": 1
+                },
+                "collaborator_id": {
+                  "type": "collaborator_id",
+                  "example": 1
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                },
+                "planStartDate": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Todos os campos são obrigatórios"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "422": {
+            "description": "E-mail inválido"
+          }
+        }
+      }
+    },
+    "/gymclients/{id}": {
+      "get": {
+        "description": "Busque um aluno com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      },
+      "put": {
+        "description": "Altere os dados de uma aluno com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "novoEmail@new.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "novaSenha123"
+                },
+                "planStartDate": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "plan_id": {
+                  "type": "plan_id",
+                  "example": 2
+                },
+                "rest": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          },
+          "422": {
+            "description": "E-mail inválido"
+          }
+        }
+      }
+    },
+    "/instructor": {
+      "get": {
+        "description": "Busque os instrutores da academia",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/instructor/{id}": {
+      "get": {
+        "description": "Busque um intrutor com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Instrutor não encontrado"
+          }
+        }
+      },
+      "put": {
+        "description": "Altere um instrutor com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Instrutor"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "sobrenome do instrutor"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "000000000-00"
+                },
+                "telephone": {
+                  "type": "string",
+                  "example": "00 00000 0000"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                },
+                "admissionDate": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                },
+                "positionCompany": {
+                  "type": "string",
+                  "example": "Responsável técnico"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "personal@personal.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "personal123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Instrutor não encontrado."
+          },
+          "422": {
+            "description": "E-mail inválido"
+          }
+        }
+      }
+    },
+    "/instructor/": {
+      "post": {
+        "description": "Crie um instrutor",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Personal"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "sobrenome"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "0000000000-76"
+                },
+                "telephone": {
+                  "type": "string",
+                  "example": "00 00000 0000"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                },
+                "admissionDate": {
+                  "type": "string",
+                  "example": "00/00/0000"
+                },
+                "positionCompany": {
+                  "type": "string",
+                  "example": "Estagiario"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "estagiario@estagiario.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "senha123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": " Verifique se os dados estão corretos."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Informe por favor todos os dados nescessários.."
+          },
+          "422": {
+            "description": "E-mail inválido"
+          }
+        }
+      }
+    },
+    "/musclegroup": {
+      "get": {
+        "description": "Busque todos os grupos musculares",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "post": {
+        "description": "Crie novos grupos musculares",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "muscle": {
+                  "type": "string",
+                  "example": "Biceps"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/musclegroup/{id}": {
+      "get": {
+        "description": "Busque o grupo muscular com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Grupo muscular não encontrado."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "put": {
+        "description": "Altere o grupo muscular com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Grupo muscular não encontrado."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete o grupo muscular com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/exercise": {
+      "get": {
+        "description": "Busque todos os exercicios",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "post": {
+        "description": "Crie novos exercicios",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "muscle_id": {
+                  "type":"muscle_id",
+                  "example": 1
+                },
+                "exercise": {
+                  "example": "Rosca Direta"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Verifique por favor se foram preenchidos todos os dados nescessários."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    },
+    "/exercise/{id}": {
+      "get": {
+        "description": "Busque o exercicio com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description":  "Exercicio não encontrado."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "put": {
+        "description": "Modifique um exercicio com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description":  "Exercicio não encontrado."
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete o exercicio com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          }
+        }
+      }
+    }
+  }
+}

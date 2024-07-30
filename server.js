@@ -4,6 +4,11 @@ dotenv.config();
 import bearerToken from "express-bearer-token";
 import cors from 'cors';
 
+//teste swagger
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './swagger/swagger-output.json' assert { type: 'json' };
+
+
 import { routerCompanyTeam } from "./src/routes/companyTeam.routes.js";
 import { routerInstructor } from "./src/routes/instructor.routes.js";
 import { routerGymClients } from "./src/routes/gymClient.routes.js";
@@ -23,22 +28,29 @@ app.get("/test", (_, res) => {
   return res.send("Hello");
 });
 
+
+//test swagger
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 //route login
-app.use("/login", routerLogin);
+app.use("/", routerLogin);
 
 //routes users
-app.use("/companyteam", routerCompanyTeam);
-app.use("/instructor", routerInstructor);
-app.use("/gymclients", routerGymClients);
+app.use("/", routerCompanyTeam);
+app.use("/", routerInstructor);
+app.use("/", routerGymClients);
 
 //routes plans
-app.use("/typeofplans", routerTypeOfPlans);
-app.use("/modality", routerModality);
-app.use("/plans", routerPlans);
+app.use("/", routerTypeOfPlans);
+app.use("/", routerModality);
+app.use("/", routerPlans);
 
 //exercise
-app.use("/musclegroup", routerMuscleGroup);
-app.use("/exercise", routerExercise);
+app.use("/", routerMuscleGroup);
+app.use("/", routerExercise);
+
+
+
 
 app.listen(8080, () => {
   console.log("Listening on port 8080");

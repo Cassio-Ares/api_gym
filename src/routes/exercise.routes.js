@@ -6,11 +6,12 @@ import {
   saveExercise,
   updateExecise,
 } from "../controller/exercise.controller.js";
+import { authIntructor } from "../middleware/accessAuth.js";
 
 export const routerExercise = Router();
 
-routerExercise.get("/", getAllExercise);
-routerExercise.get("/:id", getExerciseById);
-routerExercise.post("/", saveExercise);
-routerExercise.put("/:id", updateExecise);
-routerExercise.delete("/:id", removeExercise);
+routerExercise.get("/exercise", authIntructor, getAllExercise);
+routerExercise.get("/exercise/:id", authIntructor, getExerciseById);
+routerExercise.post("/exercise", authIntructor, saveExercise);
+routerExercise.put("/exercise/:id", authIntructor, updateExecise);
+routerExercise.delete("/exercise/:id", authIntructor, removeExercise);

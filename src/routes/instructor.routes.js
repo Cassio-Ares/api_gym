@@ -4,6 +4,7 @@ import {
   getInstructors,
   saveInstructor,
 } from "../controller/instructor.controller.js";
+import { authCollaborator } from "../middleware/accessAuth.js";
 
 /**
  * routes se comunica com controller e é resposável pelas definições dos endpoints usando crud (get, post, put, delete)
@@ -11,9 +12,9 @@ import {
 
 export const routerInstructor = Router();
 
-routerInstructor.get("/", getInstructors);
-routerInstructor.get("/:id", getInstructorById);
-routerInstructor.post("/", saveInstructor);
-routerInstructor.put("/:id", saveInstructor);
+routerInstructor.get("/instructor", authCollaborator,getInstructors);
+routerInstructor.get("/instructor/:id", getInstructorById);//
+routerInstructor.post("/instructor/", authCollaborator,saveInstructor);
+routerInstructor.put("/instructor/:id",authCollaborator ,saveInstructor);
 
 export default routerInstructor;

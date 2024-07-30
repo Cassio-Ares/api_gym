@@ -18,7 +18,7 @@ export const getCollaboratorById = async (req, res) => {
   try {
     const data = await getById(req.params.id);
     if (!data) {
-      return res.status(404).json({ message: "Cliente não encontrado." });
+      return res.status(404).json({ message: "Colaborador não encontrado." });
     }
     return res.status(200).json({ data });
   } catch (error) {

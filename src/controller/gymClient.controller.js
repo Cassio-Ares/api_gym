@@ -25,7 +25,7 @@ export const getClientById = async (req, res) => {
   try {
     const data = await getById(req.params.id);
     if (!data) {
-      return res.status(404).json({ message: "'Cliente não encontrado" });
+      return res.status(404).json({ message: "Cliente não encontrado" });
     }
 
     return res.status(200).json({ data });

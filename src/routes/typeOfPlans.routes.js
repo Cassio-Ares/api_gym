@@ -6,13 +6,14 @@ import {
   saveTypeOfPlans,
   updateTypeOfPlas,
 } from "../controller/typeOfPlans.controller.js";
+import { authCollaborator } from "../middleware/accessAuth.js";
 
 export const routerTypeOfPlans = Router();
 
-routerTypeOfPlans.get("/", getAllTypePlans);
-routerTypeOfPlans.get("/:id", getTypeOfPlansById);
-routerTypeOfPlans.post("/", saveTypeOfPlans);
-routerTypeOfPlans.put("/:id", updateTypeOfPlas);
-routerTypeOfPlans.delete("/:id", removeTypeOfPlans);
+routerTypeOfPlans.get("/typeofplans", authCollaborator, getAllTypePlans);
+routerTypeOfPlans.get("/typeofplans/:id", authCollaborator, getTypeOfPlansById);
+routerTypeOfPlans.post("/typeofplans", authCollaborator, saveTypeOfPlans);
+routerTypeOfPlans.put("/typeofplans/:id", authCollaborator, updateTypeOfPlas);
+routerTypeOfPlans.delete("/typeofplans/:id", authCollaborator, removeTypeOfPlans);
 
 export default routerTypeOfPlans;

@@ -5,6 +5,7 @@ import {
   saveCollaborator,
   updateDataCollaborator,
 } from "../controller/companyTeam.controller.js";
+import { authCollaborator } from "../middleware/accessAuth.js";
 
 /**
  * routes se comunica com controller e é resposável pelas definições dos endpoints usando crud (get, post, put, delete)
@@ -12,9 +13,9 @@ import {
 
 export const routerCompanyTeam = Router();
 
-routerCompanyTeam.get("/", getAllTeam);
-routerCompanyTeam.get("/:id", getCollaboratorById);
-routerCompanyTeam.post("/", saveCollaborator);
-routerCompanyTeam.put("/:id", updateDataCollaborator);
+routerCompanyTeam.get("/companyteam", authCollaborator ,getAllTeam);
+routerCompanyTeam.get("/companyteam/:id",authCollaborator ,getCollaboratorById);
+routerCompanyTeam.post("/companyteam", saveCollaborator);
+routerCompanyTeam.put("/companyteam/:id", authCollaborator ,updateDataCollaborator);
 
 export default routerCompanyTeam;
