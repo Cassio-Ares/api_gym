@@ -20,11 +20,6 @@
       }
     }
   },
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
   "paths": {
     "/login": {
       "post": {
@@ -96,6 +91,11 @@
     "/companyteam": {
       "get": {
         "description": "Registro de membros da equipe e seus respectivos cargos.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -224,6 +224,11 @@
     "/companyteam/{id}": {
       "get": {
         "description": "Busca usando id.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -291,6 +296,11 @@
       },
       "put": {
         "description": "Altere qualquer dado de um colaborador.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -367,6 +377,11 @@
     "/modality": {
       "get": {
         "description": "Busque as modalidades que a academia oferce.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -393,6 +408,11 @@
       },
       "post": {
         "description": "Cadastre uma nova modalidade.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -421,6 +441,11 @@
     "/modality/{id}": {
       "get": {
         "description": "Busque uma modalidades a partir do ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -455,6 +480,11 @@
       },
       "put": {
         "description": "Altere uma modalidade com o ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -492,6 +522,11 @@
       },
       "delete": {
         "description": "Delete a modalidade com o ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -515,6 +550,11 @@
     "/typeofplans": {
       "get": {
         "description": "Busque os tipos de planos.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -542,6 +582,11 @@
       },
       "post": {
         "description": "Cadastre um novo tipo de plano.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -577,6 +622,11 @@
     "/typeofplans/{id}": {
       "get": {
         "description": "Busque tipo de plano com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -615,6 +665,11 @@
       },
       "put": {
         "description": "ALtere o plano com o ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -656,6 +711,11 @@
       },
       "delete": {
         "description": "Delete o tipo de plano com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -679,6 +739,11 @@
     "/plans": {
       "get": {
         "description": "Busque os planos que a academia oferece.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -714,6 +779,11 @@
       },
       "post": {
         "description": "Crie novos planos para a academia.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -757,6 +827,11 @@
     "/plans/{id}": {
       "get": {
         "description": "Busque o plano com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -803,6 +878,11 @@
       },
       "put": {
         "description": "Altere o plano com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -849,6 +929,11 @@
       },
       "delete": {
         "description": "Delete o plano com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -872,6 +957,11 @@
     "/gymclients": {
       "get": {
         "description": "Busque todos os alunos da academia",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -927,6 +1017,11 @@
       },
       "post": {
         "description": "Crie um novo aluno.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -997,6 +1092,11 @@
     "/gymclients/{id}": {
       "get": {
         "description": "Busque um aluno com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1019,6 +1119,11 @@
       },
       "put": {
         "description": "Altere os dados de uma aluno com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1097,6 +1202,11 @@
     "/instructor": {
       "get": {
         "description": "Busque os instrutores da academia",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -1152,6 +1262,11 @@
       },
       "post": {
         "description": "Crie um instrutor",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1225,6 +1340,11 @@
     "/instructor/{id}": {
       "get": {
         "description": "Busque um intrutor com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1288,6 +1408,11 @@
       },
       "put": {
         "description": "Altere um instrutor com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1368,6 +1493,11 @@
     "/musclegroup": {
       "get": {
         "description": "Busque todos os grupos musculares",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -1391,6 +1521,11 @@
       },
       "post": {
         "description": "Crie novos grupos musculares",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1419,6 +1554,11 @@
     "/musclegroup/{id}": {
       "get": {
         "description": "Busque o grupo muscular com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1453,6 +1593,11 @@
       },
       "put": {
         "description": "Altere o grupo muscular com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1492,6 +1637,11 @@
       },
       "delete": {
         "description": "Delete o grupo muscular com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1515,6 +1665,11 @@
     "/exercise": {
       "get": {
         "description": "Busque todos os exercicios",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -1541,6 +1696,11 @@
       },
       "post": {
         "description": "Crie novos exercicios",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1575,6 +1735,11 @@
     "/exercise/{id}": {
       "get": {
         "description": "Busque o exercicio com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1597,6 +1762,11 @@
       },
       "put": {
         "description": "Modifique um exercicio com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1637,6 +1807,11 @@
       },
       "delete": {
         "description": "Delete o exercicio com ID XX",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",

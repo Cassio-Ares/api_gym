@@ -4,7 +4,7 @@ dotenv.config();
 import bearerToken from "express-bearer-token";
 import cors from 'cors';
 
-//teste swagger
+//swagger
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from './swagger/swagger-output.json' assert { type: 'json' };
 
@@ -24,13 +24,19 @@ app.use(cors());
 app.use(bearerToken());
 app.use(express.json());
 
-app.get("/test", (_, res) => {
-  return res.send("Hello");
-});
-
 
 //test swagger
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+//estilização da documentação
+app.get('/swagger/swagger-output.json', (_, res) => {
+  return res.sendFile(process.cwd() + '/swagger/swagger-output.json');
+});
+
+app.get('/', (_, res)=>{
+  return res.sendFile(process.cwd() + '/index.html')
+})
+
 
 //route login
 app.use("/", routerLogin);
