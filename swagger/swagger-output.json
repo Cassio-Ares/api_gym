@@ -1,37 +1,54 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.1.0",
   "info": {
     "title": "Api ADM_GYM",
-    "description": "API para gerenciar a equipe da empresa",
+    "description": "Api de gestão de uma academia.",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
-  "basePath": "/",
-  "schemes": ["http"],
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Servidor localhost"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
     "/login": {
       "post": {
         "description": "Rota de login com autenticação que permite acesso a administradores e professores com base em um token de autenticação. O sistema verifica o email e a senha e retorna um token JWT se as credenciais forem válidas",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "exemplo@exemplo.com "
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "exemplo@exemplo.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "exemplo123"
+                  }
                 },
-                "password": {
-                  "type": "string",
-                  "example": "exemplo123"
-                }
-              },
-              "required": ["email", "password"]
+                "required": ["email", "password"]
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Login bem-sucedido, token de autenticação retornado.",
@@ -50,7 +67,7 @@
             }
           },
           "401": {
-            "description": "Email ou senha incorretos.",
+            "description": "Email ou senha não encontrados",
             "schema": {
               "type": "object",
               "properties": {
@@ -60,9 +77,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Erro interno do servidor.",
@@ -84,7 +98,50 @@
         "description": "Registro de membros da equipe e seus respectivos cargos.",
         "responses": {
           "200": {
-            "description": "Cadastro ok."
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "firstName": {
+                        "type": "string",
+                        "example": "Tanjiro"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Kamado"
+                      },
+                      "cpf": {
+                        "type": "string",
+                        "example": "000000000-00"
+                      },
+                      "telephone": {
+                        "type": "string",
+                        "example": "00 00000 0000"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "collaborator@gym.com"
+                      },
+                      "positionCompany": {
+                        "type": "string",
+                        "example": "adm"
+                      },
+                      "dateOfBirth": {
+                        "type": "string",
+                        "example": "00/00/0000"
+                      },
+                      "admissionDate": {
+                        "type": "string",
+                        "example": "00/00/0000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -93,53 +150,64 @@
       },
       "post": {
         "description": "Cadastrar um novo colaborador.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "Tanjiro"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "Tanjiro"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Kamado"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "00000000000"
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "example": "00000000000"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "collaborator@gym.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password333"
+                  },
+                  "positionCompany": {
+                    "type": "string",
+                    "example": "adm"
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "admissionDate": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  }
                 },
-                "lastName": {
-                  "type": "string",
-                  "example": "Kamado"
-                },
-                "cpf": {
-                  "type": "string",
-                  "example": "000000000-00"
-                },
-                "telephone": {
-                  "type": "string",
-                  "example": "00 00000 0000"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "collaborator@gym.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "password333"
-                },
-                "positionCompany": {
-                  "type": "string",
-                  "example": "adm"
-                },
-                "dateOfBirth": {
-                  "type": "string",
-                  "example": "00/00/0000"
-                },
-                "admissionDate": {
-                  "type": "string",
-                  "example": "00/00/0000"
-                }
+                "required": [
+                  "firstName",
+                  "lastName",
+                  "cpf",
+                  "telephone",
+                  "email",
+                  "password",
+                  "positionCompany",
+                  "dateOfBirth",
+                  "admissionDate"
+                ]
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -161,12 +229,57 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "firstName": {
+                        "type": "string",
+                        "example": "Tanjiro"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Kamado"
+                      },
+                      "cpf": {
+                        "type": "string",
+                        "example": "000000000-00"
+                      },
+                      "telephone": {
+                        "type": "string",
+                        "example": "00 00000 0000"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "collaborator@gym.com"
+                      },
+                      "positionCompany": {
+                        "type": "string",
+                        "example": "adm"
+                      },
+                      "dateOfBirth": {
+                        "type": "string",
+                        "example": "00/00/0000"
+                      },
+                      "admissionDate": {
+                        "type": "string",
+                        "example": "00/00/0000"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -177,36 +290,64 @@
         }
       },
       "put": {
-        "description": "",
+        "description": "Altere qualquer dado de um colaborador.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "exemplo.exemplo.com"
-                },
-                "password": {
-                  "example": "exemplo123"
-                },
-                "dateOfDismissal": {
-                  "example": "00/00/00"
-                },
-                "rest": {
-                  "example": "any"
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "Tanjiro"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Kamado"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "00000000000"
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "example": "00000000000"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "collaborator@gym.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password333"
+                  },
+                  "positionCompany": {
+                    "type": "string",
+                    "example": "adm"
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "admissionDate": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -228,7 +369,22 @@
         "description": "Busque as modalidades que a academia oferce.",
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "modality": {
+                        "type": "string",
+                        "example": "Musculação"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -237,21 +393,21 @@
       },
       "post": {
         "description": "Cadastre uma nova modalidade.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "modality": {
-                  "type": "string",
-                  "example": "Musculação"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "modality": {
+                    "type": "string",
+                    "example": "Musculação"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -275,7 +431,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "modality": {
+                        "type": "string",
+                        "example": "Musculação"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "404": {
             "description": "Modalidade não encontrada."
@@ -292,6 +463,21 @@
             "type": "string"
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "modality": {
+                    "type": "string",
+                    "example": "Musculação"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -311,7 +497,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -329,7 +517,23 @@
         "description": "Busque os tipos de planos.",
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "typeOfPlan": {
+                      "type": "string",
+                      "example": "Mensal"
+                    },
+                    "duration": {
+                      "type": "number",
+                      "example": 30
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -338,25 +542,25 @@
       },
       "post": {
         "description": "Cadastre um novo tipo de plano.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "typeOfPlan": {
-                  "type": "string",
-                  "example": "Mensal"
-                },
-                "duration": {
-                  "type": "number",
-                  "example": 30
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "typeOfPlan": {
+                    "type": "string",
+                    "example": "Mensal"
+                  },
+                  "duration": {
+                    "type": "number",
+                    "example": 30
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -383,7 +587,23 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "typeOfPlan": {
+                      "type": "string",
+                      "example": "Mensal"
+                    },
+                    "duration": {
+                      "type": "number",
+                      "example": 30
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -403,6 +623,25 @@
             "type": "string"
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "typeOfPlan": {
+                    "type": "string",
+                    "example": "Mensal"
+                  },
+                  "duration": {
+                    "type": "number",
+                    "example": 30
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -422,7 +661,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -440,7 +681,31 @@
         "description": "Busque os planos que a academia oferece.",
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "plan": {
+                      "type": "string",
+                      "example": "Operação Verão"
+                    },
+                    "typePlan_id": {
+                      "type": "typePlan_id",
+                      "example": 1
+                    },
+                    "modality_id": {
+                      "type": "modality_id",
+                      "example": 1
+                    },
+                    "planValue": {
+                      "type": "integer",
+                      "example": 10000
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -449,33 +714,33 @@
       },
       "post": {
         "description": "Crie novos planos para a academia.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "plan": {
-                  "type": "string",
-                  "example": "Operação Verão"
-                },
-                "typePlan_id": {
-                  "type": "typePlan_id",
-                  "example": 1
-                },
-                "modality_id": {
-                  "type": "modality_id",
-                  "example": 1
-                },
-                "planValue": {
-                  "type": "integer",
-                  "example": 10000
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plan": {
+                    "type": "string",
+                    "example": "Operação Verão"
+                  },
+                  "typePlan_id": {
+                    "type": "typePlan_id",
+                    "example": 1
+                  },
+                  "modality_id": {
+                    "type": "modality_id",
+                    "example": 1
+                  },
+                  "planValue": {
+                    "type": "integer",
+                    "example": 10000
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -502,7 +767,31 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "plan": {
+                      "type": "string",
+                      "example": "Operação Verão"
+                    },
+                    "typePlan_id": {
+                      "type": "typePlan_id",
+                      "example": 1
+                    },
+                    "modality_id": {
+                      "type": "modality_id",
+                      "example": 1
+                    },
+                    "planValue": {
+                      "type": "integer",
+                      "example": 10000
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -522,6 +811,33 @@
             "type": "string"
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plan": {
+                    "type": "string",
+                    "example": "Operação Verão"
+                  },
+                  "typePlan_id": {
+                    "type": "typePlan_id",
+                    "example": 1
+                  },
+                  "modality_id": {
+                    "type": "modality_id",
+                    "example": 1
+                  },
+                  "planValue": {
+                    "type": "integer",
+                    "example": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -538,7 +854,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -556,7 +874,51 @@
         "description": "Busque todos os alunos da academia",
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstName": {
+                      "type": "string",
+                      "example": "GymAluno "
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "Sobrenome gymAluno"
+                    },
+                    "cpf": {
+                      "type": "string",
+                      "example": "000000000-76"
+                    },
+                    "telephone": {
+                      "type": "string",
+                      "example": "00 00000 0000"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "alunoGym@aluno.com"
+                    },
+                    "plan_id": {
+                      "type": "plan_id",
+                      "example": 1
+                    },
+                    "collaborator_id": {
+                      "type": "collaborator_id",
+                      "example": 1
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "example": "00/00/0000"
+                    },
+                    "planStartDate": {
+                      "type": "string",
+                      "example": "00/00/0000"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -565,57 +927,57 @@
       },
       "post": {
         "description": "Crie um novo aluno.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "GymAluno "
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "Sobrenome gymAluno"
-                },
-                "cpf": {
-                  "type": "string",
-                  "example": "000000000-76"
-                },
-                "telephone": {
-                  "type": "string",
-                  "example": "00 00000 0000"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "alunoGym@aluno.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "senha123"
-                },
-                "plan_id": {
-                  "type": "plan_id",
-                  "example": 1
-                },
-                "collaborator_id": {
-                  "type": "collaborator_id",
-                  "example": 1
-                },
-                "dateOfBirth": {
-                  "type": "string",
-                  "example": "00/00/0000"
-                },
-                "planStartDate": {
-                  "type": "string",
-                  "example": "00/00/0000"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "GymAluno "
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Sobrenome gymAluno"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "000000000-76"
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "example": "00 00000 0000"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "alunoGym@aluno.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "senha123"
+                  },
+                  "plan_id": {
+                    "type": "plan_id",
+                    "example": 1
+                  },
+                  "collaborator_id": {
+                    "type": "collaborator_id",
+                    "example": 1
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "planStartDate": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -663,36 +1025,59 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "novoEmail@new.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "novaSenha123"
-                },
-                "planStartDate": {
-                  "type": "string",
-                  "example": "any"
-                },
-                "plan_id": {
-                  "type": "plan_id",
-                  "example": 2
-                },
-                "rest": {
-                  "example": "any"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "GymAluno "
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Sobrenome gymAluno"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "000000000-76"
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "example": "00 00000 0000"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "alunoGym@aluno.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "senha123"
+                  },
+                  "plan_id": {
+                    "type": "plan_id",
+                    "example": 1
+                  },
+                  "collaborator_id": {
+                    "type": "collaborator_id",
+                    "example": 1
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "planStartDate": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -714,155 +1099,110 @@
         "description": "Busque os instrutores da academia",
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstName": {
+                      "type": "string",
+                      "example": "Instrutor"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "sobrenome do instrutor"
+                    },
+                    "cpf": {
+                      "type": "string",
+                      "example": "000000000-00"
+                    },
+                    "telephone": {
+                      "type": "string",
+                      "example": "00 00000 0000"
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "example": "00/00/0000"
+                    },
+                    "admissionDate": {
+                      "type": "string",
+                      "example": "00/00/0000"
+                    },
+                    "positionCompany": {
+                      "type": "string",
+                      "example": "Responsável técnico"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "personal@personal.com"
+                    },
+                    "modality_id": {
+                      "type": "modality_id",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
-          }
-        }
-      }
-    },
-    "/instructor/{id}": {
-      "get": {
-        "description": "Busque um intrutor com ID XX",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Instrutor não encontrado"
           }
         }
       },
-      "put": {
-        "description": "Altere um instrutor com ID XX",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "Instrutor"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "sobrenome do instrutor"
-                },
-                "cpf": {
-                  "type": "string",
-                  "example": "000000000-00"
-                },
-                "telephone": {
-                  "type": "string",
-                  "example": "00 00000 0000"
-                },
-                "dateOfBirth": {
-                  "type": "string",
-                  "example": "00/00/0000"
-                },
-                "admissionDate": {
-                  "type": "string",
-                  "example": "00/00/0000"
-                },
-                "positionCompany": {
-                  "type": "string",
-                  "example": "Responsável técnico"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "personal@personal.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "personal123"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Acesso negado nenhum token valido fornecido"
-          },
-          "404": {
-            "description": "Instrutor não encontrado."
-          },
-          "422": {
-            "description": "E-mail inválido"
-          }
-        }
-      }
-    },
-    "/instructor/": {
       "post": {
         "description": "Crie um instrutor",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "Personal"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "sobrenome"
-                },
-                "cpf": {
-                  "type": "string",
-                  "example": "0000000000-76"
-                },
-                "telephone": {
-                  "type": "string",
-                  "example": "00 00000 0000"
-                },
-                "dateOfBirth": {
-                  "type": "string",
-                  "example": "00/00/0000"
-                },
-                "admissionDate": {
-                  "type": "string",
-                  "example": "00/00/0000"
-                },
-                "positionCompany": {
-                  "type": "string",
-                  "example": "Estagiario"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "estagiario@estagiario.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "senha123"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "Instrutor"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "sobrenome do instrutor"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "000000000-00"
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "example": "00 00000 0000"
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "admissionDate": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "positionCompany": {
+                    "type": "string",
+                    "example": "Responsável técnico"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "personal@personal.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "personal123"
+                  },
+                  "modality_id": {
+                    "type": "modality_id",
+                    "example": 1
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -882,12 +1222,167 @@
         }
       }
     },
+    "/instructor/{id}": {
+      "get": {
+        "description": "Busque um intrutor com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstName": {
+                      "type": "string",
+                      "example": "Instrutor"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "sobrenome do instrutor"
+                    },
+                    "cpf": {
+                      "type": "string",
+                      "example": "00000000000"
+                    },
+                    "telephone": {
+                      "type": "string",
+                      "example": "00 00000 0000"
+                    },
+                    "dateOfBirth": {
+                      "type": "string",
+                      "example": "00/00/0000"
+                    },
+                    "admissionDate": {
+                      "type": "string",
+                      "example": "00/00/0000"
+                    },
+                    "positionCompany": {
+                      "type": "string",
+                      "example": "Responsável técnico"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "personal@personal.com"
+                    },
+                    "modality_id": {
+                      "type": "modality_id",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Instrutor não encontrado"
+          }
+        }
+      },
+      "put": {
+        "description": "Altere um instrutor com ID XX",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "Instrutor"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "sobrenome do instrutor"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "000000000-00"
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "example": "00 00000 0000"
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "admissionDate": {
+                    "type": "string",
+                    "example": "00/00/0000"
+                  },
+                  "positionCompany": {
+                    "type": "string",
+                    "example": "Responsável técnico"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "personal@personal.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "personal123"
+                  },
+                  "modality_id": {
+                    "type": "modality_id",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Acesso negado nenhum token valido fornecido"
+          },
+          "404": {
+            "description": "Instrutor não encontrado."
+          },
+          "422": {
+            "description": "E-mail inválido"
+          }
+        }
+      }
+    },
     "/musclegroup": {
       "get": {
         "description": "Busque todos os grupos musculares",
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "muscle": {
+                      "type": "string",
+                      "example": "Biceps"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -896,21 +1391,21 @@
       },
       "post": {
         "description": "Crie novos grupos musculares",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "muscle": {
-                  "type": "string",
-                  "example": "Biceps"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "muscle": {
+                    "type": "string",
+                    "example": "Biceps"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -934,7 +1429,19 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "muscle": {
+                      "type": "string",
+                      "example": "Biceps"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "Grupo muscular não encontrado."
@@ -951,9 +1458,26 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "muscle": {
+                    "type": "string",
+                    "example": "Biceps"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -973,7 +1497,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -991,7 +1517,22 @@
         "description": "Busque todos os exercicios",
         "responses": {
           "200": {
-            "description": "OK"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "muscle_id": {
+                      "type": "muscle_id",
+                      "example": 1
+                    },
+                    "exercise": {
+                      "example": "Rosca Direta"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -1000,24 +1541,24 @@
       },
       "post": {
         "description": "Crie novos exercicios",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "muscle_id": {
-                  "type":"muscle_id",
-                  "example": 1
-                },
-                "exercise": {
-                  "example": "Rosca Direta"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "muscle_id": {
+                    "type": "muscle_id",
+                    "example": 1
+                  },
+                  "exercise": {
+                    "example": "Rosca Direta"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "OK"
@@ -1047,7 +1588,7 @@
             "description": "OK"
           },
           "400": {
-            "description":  "Exercicio não encontrado."
+            "description": "Exercicio não encontrado."
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -1064,12 +1605,30 @@
             "type": "string"
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "muscle_id": {
+                    "type": "muscle_id",
+                    "example": 1
+                  },
+                  "exercise": {
+                    "example": "Rosca Direta"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
           },
           "400": {
-            "description":  "Exercicio não encontrado."
+            "description": "Exercicio não encontrado."
           },
           "401": {
             "description": "Acesso negado nenhum token valido fornecido"
@@ -1083,7 +1642,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

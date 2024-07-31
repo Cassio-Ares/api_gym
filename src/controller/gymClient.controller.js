@@ -80,10 +80,8 @@ export const saveClient = async (req, res) => {
       );
     }
 
-    console.log('dtStr:', dateOfBirth)
     const passCrypt = await crypt(password);
     const birth = stringDate(dateOfBirth)
-    console.log('ret:', birth)
 
     const data = {
       ...req.body,

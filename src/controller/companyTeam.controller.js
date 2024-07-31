@@ -29,7 +29,7 @@ export const getCollaboratorById = async (req, res) => {
 export const saveCollaborator = async (req, res) => {
   try {
     const {firstName, lastName, cpf, telephone, email, password, positionCompany, dateOfBirth, admissionDate } = req.body;
-
+     
     const validation = isRequired(res, firstName, lastName, cpf, telephone, dateOfBirth )
     if(validation) return
 
@@ -73,6 +73,7 @@ export const updateDataCollaborator = async (req, res) => {
   try {
     const { email, password, dateOfDismissal, ...rest } = req.body;
     let data = { ...rest };
+
 
     if (email && !emailValid(email)) {
       return res.status(400).json({ message: "E-mail inválido" });

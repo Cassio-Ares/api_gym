@@ -1,17 +1,24 @@
 import { getByEmailTeam } from "../models/companyTeam.model.js";
 import { getByEmailInstructor } from "../models/instructor.model.js";
 import { compareCrypt } from "../utils/bcryptUtils.js";
+import { emailValid } from "../utils/emailValid.js";
 import { createTokenInstructor, createTokenTeam } from "../utils/jwtUtils.js";
 
 export const authLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+   let isValid = emailValid(email) 
+
+  
+    if(!isValid){
+      return res.status(404).json({message: "Verifique se e-mail esta em um formato valido."})
+    }
+
     const team = await getByEmailTeam(email);
     const instructor = await getByEmailInstructor(email);
-
+   
     let token;
 
-   console.log(team.password)
 
     if (!team && !instructor) {
       return res
@@ -19,13 +26,14 @@ export const authLogin = async (req, res) => {
         .json({ message: "Email ou password não encontrado" });
     }
 
+  
     if (team) {
       const passwordMatch = await compareCrypt(password, team.password);
 
       if (!passwordMatch) {
-        return res.status(401).json({ message: "Email ou password não encontrado" });
+        return res.status(404).json({ message: "Email ou password não encontrado" });
       }
-      console.log(team.id);
+    
       token = createTokenTeam(team.id);
     }
 
@@ -33,7 +41,7 @@ export const authLogin = async (req, res) => {
       const passwordMatch = await compareCrypt(password, instructor.password);
       if (!passwordMatch) {
         return res
-          .status(401)
+          .status(404)
           .json({ message: "Email ou password não encontrado" });
       }
       token = createTokenInstructor(instructor.id);

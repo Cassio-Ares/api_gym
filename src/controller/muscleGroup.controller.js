@@ -40,7 +40,8 @@ export const saveMuscleGroup = async (req, res) => {
 
 export const updateMuscleGroup = async (req, res) => {
   try {
-    const data = req.params;
+    const data = req.body;
+  
     const muscleGroup = await update(req.params.id, data);
     if (!muscleGroup) {
       return res.status(400).json({ message: "Grupo muscular não encontrado." });

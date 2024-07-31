@@ -5,8 +5,14 @@ export const doc = {
     title: "Api ADM_GYM",
     description: "Api de gestão de uma academia.",
   },
-  host: "localhost:8080", // Altere para o host da sua API
-  schemes: ["http"], // Altere para 'https' se necessário
+  servers:[
+    { 
+      url: "http://localhost:8080/",
+      description: "Servidor localhost"
+    }
+  ],
+  openapi:"3.1.0",
+  language: "pt-br"
 };
 
 export const outputFile = "./swagger-output.json";
@@ -20,7 +26,7 @@ const endpointsFiles = [
   "../src/routes/gymClient.routes.js",
   "../src/routes/instructor.routes.js",
   "../src/routes/muscleGroup.routes.js",
-  "../src/routes/exercise.routes.js", // Verifique se este caminho está correto
+  "../src/routes/exercise.routes.js", 
 ];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

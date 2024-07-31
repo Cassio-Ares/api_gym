@@ -9,6 +9,7 @@ export const getAll = () => {
     .join("modality", "plans.modality_id", "=", "modality.modality_id")
     .select(
       "plans.plan_id",
+      "plans.plan",
       "typeOfPlan.typeOfPlan as typePlanName",
       "modality.modality as modalityName",
       "plans.planValue"
@@ -19,7 +20,15 @@ export const getById = (id) => {
   return db()
     .table(TABLE)
     .where("plan_id", id)
-    .select("*")
+    .join("typeOfPlan", "plans.typePlan_id", "=", "typeOfPlan.typePlan_id")
+    .join("modality", "plans.modality_id", "=", "modality.modality_id")
+    .select(
+      "plans.plan_id",
+      "plans.plan",
+      "typeOfPlan.typeOfPlan as typePlanName",
+      "modality.modality as modalityName",
+      "plans.planValue"
+    )
     .first()
 };
 

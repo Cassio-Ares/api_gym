@@ -31,9 +31,11 @@ export const getExerciseById = async (req, res) => {
 export const saveExercise = async (req, res) => {
   try {
     const { muscle_id, exercise } = req.body;
+    
     if (!muscle_id || !exercise) {
       return res.status(400).json({ message: "Verifique por favor se foram preenchidos todos os dados nescessários." });
     }
+
 
     const newExercise = await save({ muscle_id, exercise });
 
